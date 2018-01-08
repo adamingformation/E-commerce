@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,6 +27,10 @@ public class Categorie implements Serializable {
 	//transfo uml en java
 	@OneToMany(mappedBy="categorie",cascade=CascadeType.ALL)
 	private List<Produit> listeProduit;
+	
+		@ManyToOne
+		@JoinColumn(name="admin_id",referencedColumnName="id_a")
+		private Admin admin;
 
 	//les constructeurs
 	public Categorie() {

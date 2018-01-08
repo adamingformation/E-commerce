@@ -39,6 +39,10 @@ public class Produit implements Serializable{
 	
 	@OneToMany(mappedBy="produit",cascade=CascadeType.ALL)
 	private List<LigneCommande> listeLigne;
+	
+		@ManyToOne
+		@JoinColumn(name="admin_id",referencedColumnName="id_a")
+		private Admin admin;
 		
 	//constructeur 
 	public Produit() {
