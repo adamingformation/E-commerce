@@ -22,14 +22,7 @@ public class Admin {
 	@Column(name="id_a")
 	private int id;
 	private String mail,mdp;
-	
-	//transformation de l'association UML en java
-	
-	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
-	private List<Produit> listeProduit;
-	
-	@OneToMany(mappedBy="admin",cascade=CascadeType.ALL)
-	private List<Categorie> listeCategorie;
+
 
 	
 	//3 constructeurs

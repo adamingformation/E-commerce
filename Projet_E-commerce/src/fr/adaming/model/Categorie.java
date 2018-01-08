@@ -28,9 +28,7 @@ public class Categorie implements Serializable {
 	@OneToMany(mappedBy="categorie",cascade=CascadeType.ALL)
 	private List<Produit> listeProduit;
 	
-		@ManyToOne
-		@JoinColumn(name="admin_id",referencedColumnName="id_a")
-		private Admin admin;
+
 
 	//les constructeurs
 	public Categorie() {

@@ -16,39 +16,34 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="produits")
+@Table(name = "produits")
 
-public class Produit implements Serializable{
-	
-	//attribut
+public class Produit implements Serializable {
+
+	// attribut
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProduit;
-	
+
 	private String designation;
 	private String description;
 	private double prix;
 	private int quantite;
-	private boolean selectionne;
+	private boolean selectionne = false;
 	private byte[] photo;
-	
-	//transformation relation uml en java
+
+	// transformation relation uml en java
 	@ManyToOne
-	@JoinColumn(name="categorie_id",referencedColumnName="idCategorie")
+	@JoinColumn(name = "categorie_id", referencedColumnName = "idCategorie")
 	private Categorie categorie;
-	
-	@OneToMany(mappedBy="produit",cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
 	private List<LigneCommande> listeLigne;
-	
-		@ManyToOne
-		@JoinColumn(name="admin_id",referencedColumnName="id_a")
-		private Admin admin;
-		
-	//constructeur 
+
+	// constructeur
 	public Produit() {
 		super();
 	}
-	
 
 	public Produit(String designation, String description, double prix, int quantite, boolean selectionne,
 			byte[] photo) {
@@ -72,9 +67,17 @@ public class Produit implements Serializable{
 		this.selectionne = selectionne;
 		this.photo = photo;
 	}
-	
-	
-	//getter et setter
+
+	public Produit(String designation, String description, double prix, int quantite, byte[] photo) {
+		super();
+		this.designation = designation;
+		this.description = description;
+		this.prix = prix;
+		this.quantite = quantite;
+		this.photo = photo;
+	}
+
+	// getter et setter
 	public long getIdProduit() {
 		return idProduit;
 	}
@@ -131,22 +134,11 @@ public class Produit implements Serializable{
 		this.photo = photo;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", designation=" + designation + ", description=" + description
 				+ ", prix=" + prix + ", quantite=" + quantite + ", selectionne=" + selectionne + ", photo="
 				+ Arrays.toString(photo) + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -41,7 +41,7 @@ public class AdminManagedBean implements Serializable {
 			//ajouter l'agent dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", aOut);
 			
-			return "accueil";
+			return "gestionStock";
 		}catch (Exception e){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Admin n'existe pas"));
 		}
