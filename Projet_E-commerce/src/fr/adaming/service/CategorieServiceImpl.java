@@ -1,23 +1,23 @@
-package fr.adaming.dao;
+package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
 
+import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Categorie;
 
-@Stateless
-public class CategorieDaoImpl implements ICategorieDao{
-	
-	@PersistenceContext(unitName = "PU_E")
-	private EntityManager em;
-	
-	
+@Stateful
+public class CategorieServiceImpl implements ICategorieService{
 
-	public void setEm(EntityManager em) {
-		this.em = em;
+	
+	@EJB
+	private ICategorieDao categorieDao;
+	
+	
+	public void setCategorieDao(ICategorieDao categorieDao) {
+		this.categorieDao = categorieDao;
 	}
 
 	@Override
@@ -34,10 +34,8 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public Categorie addCategorie(Categorie C) {
-		em.persist(C);
-
-		// 1er C sans id mais retour aura un id
-		return C;
+	
+				return categorieDao.addCategorie(C);
 	}
 
 	@Override
@@ -51,9 +49,5 @@ public class CategorieDaoImpl implements ICategorieDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
-	
 
 }

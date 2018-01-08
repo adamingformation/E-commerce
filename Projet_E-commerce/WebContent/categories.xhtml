@@ -10,7 +10,18 @@
 </h:head>
 
 <h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+		Nom de la Catégorie : <h:inputText value="#{cMB.categorie.nomCategorie}" />
+	
+		Description : <h:inputText value="#{cMB.categorie.description}" />
 
+
+			<p:commandButton value="Ajouter" action="#{cMB.ajouterCategorie}" update="@all" />
+
+		</h:panelGrid>
+	</h:form>
+	<h:messages style="color:red" />
 
 	
 
