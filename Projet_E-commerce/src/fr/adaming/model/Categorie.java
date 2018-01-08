@@ -1,11 +1,15 @@
 package fr.adaming.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,25 +20,26 @@ public class Categorie implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idCategorie;
 	private String nomCategorie;
-	private byte photo;
+	private byte[] photo;
 	private String description;
 	
 	//transfo uml en java
-	private Produit produit;
+	@OneToMany(mappedBy="categorie",cascade=CascadeType.ALL)
+	private List<Produit> listeProduit;
 
 	//les constructeurs
 	public Categorie() {
 		super();
 	}
 
-	public Categorie(String nomCategorie, byte photo, String description) {
+	public Categorie(String nomCategorie, byte[] photo, String description) {
 		super();
 		this.nomCategorie = nomCategorie;
 		this.photo = photo;
 		this.description = description;
 	}
 
-	public Categorie(Long idCategorie, String nomCategorie, byte photo, String description) {
+	public Categorie(Long idCategorie, String nomCategorie, byte[] photo, String description) {
 		super();
 		this.idCategorie = idCategorie;
 		this.nomCategorie = nomCategorie;
@@ -58,11 +63,11 @@ public class Categorie implements Serializable {
 		this.nomCategorie = nomCategorie;
 	}
 
-	public byte getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(byte photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 
@@ -74,14 +79,18 @@ public class Categorie implements Serializable {
 		this.description = description;
 	}
 
-	public Produit getProduit() {
-		return produit;
+
+
+	public List<Produit> getListeProduit() {
+		return listeProduit;
 	}
 
-	public void setProduit(Produit produit) {
-		this.produit = produit;
+	public void setListeProduit(List<Produit> listeProduit) {
+		this.listeProduit = listeProduit;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Categorie [idCategorie=" + idCategorie + ", nomCategorie=" + nomCategorie + ", photo=" + photo

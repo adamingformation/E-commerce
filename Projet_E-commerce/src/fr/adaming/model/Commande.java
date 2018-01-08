@@ -4,10 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +26,12 @@ public class Commande implements Serializable{
 	private Date dateCommande;
 	
 	//transformation uml en java
-	private List<ligneCommande> listeligne;
+	@OneToMany(mappedBy="commande",cascade=CascadeType.ALL)
+	private List<LigneCommande> listeligne;
 	
-	
-	
+	@ManyToOne
+	@JoinColumn(name="client_id",referencedColumnName="idCLient")
+	private Client client;
 	
 	//constructeur
 	public Commande() {
@@ -65,6 +71,28 @@ public class Commande implements Serializable{
 		this.dateCommande = dateCommande;
 	}
 
+	
+
+	public List<LigneCommande> getListeligne() {
+		return listeligne;
+	}
+
+
+	public void setListeligne(List<LigneCommande> listeligne) {
+		this.listeligne = listeligne;
+	}
+
+
+	public Client getClient() {
+		return client;
+	}
+
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	
 
 	@Override
 	public String toString() {
