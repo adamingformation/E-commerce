@@ -29,6 +29,7 @@ public class Commande implements Serializable{
 	@OneToMany(mappedBy="commande",cascade=CascadeType.ALL)
 	private List<LigneCommande> listeligne;
 	
+	
 	@ManyToOne
 	@JoinColumn(name="client_id",referencedColumnName="idCLient")
 	private Client client;

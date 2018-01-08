@@ -24,6 +24,7 @@ public class Client implements Serializable {
 	private String email;
 	private String tel;
 	
+	
 	//association UML en java
 	@OneToMany(mappedBy="client",cascade=CascadeType.ALL)
 	private List<Commande> listeCommande;

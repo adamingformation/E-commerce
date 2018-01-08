@@ -44,6 +44,7 @@ public class Produit implements Serializable{
 	public Produit() {
 		super();
 	}
+	
 
 	public Produit(String designation, String description, double prix, int quantite, boolean selectionne,
 			byte[] photo) {
