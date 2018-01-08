@@ -13,12 +13,12 @@
 
 	<h:form>
 		<h:panelGrid columns="2">
-		Designation : <h:inputText value="#{pMb.produit.designation}" />
-		Description : <h:inputText value="#{pMb.produit.description}" />
-		Prix : <h:inputText value="#{pMb.produit.prix}" />
-		Quantité : <h:inputText value="#{pMb.produit.quantité}" />		
-		Photo : <h:inputText value="#{pMb.produit.photo}" />
-		Id Catégorie : <h:inputText value="#{pMb.categorie.id}" />
+		Designation : <h:inputText value="#{pMB.produit.designation}" />
+		Description : <h:inputText value="#{pMB.produit.description}" />
+		Prix : <h:inputText value="#{pMB.produit.prix}" />
+		Quantité : <h:inputText value="#{pMB.produit.quantite}" />		
+		
+		Id Catégorie : <h:inputText value="#{pMB.categorie.idCategorie}" />
 
 
 			<p:commandButton value="Ajouter" action="#{pMB.ajouterProduit}" update="@all" />

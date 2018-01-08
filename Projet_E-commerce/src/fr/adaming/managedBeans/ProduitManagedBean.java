@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 
 import fr.adaming.model.Admin;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
@@ -25,9 +26,11 @@ public class ProduitManagedBean implements Serializable {
 	private Admin admin;
 	private List<Produit> listeProduit;
 	private Produit produit;
+	private Categorie categorie;
 
 	public ProduitManagedBean() {
 		this.produit = new Produit();
+		this.categorie=new Categorie();
 	}
 
 	public Produit getProduit() {
@@ -53,6 +56,16 @@ public class ProduitManagedBean implements Serializable {
 	public void setListeProduit(List<Produit> listeProduit) {
 		this.listeProduit = listeProduit;
 	}
+	
+	
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
 
 	public String ajouterProduit() {
 		this.produit = produitService.addProduitStock(this.produit);
@@ -65,7 +78,7 @@ public class ProduitManagedBean implements Serializable {
 			return "gestionStock";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit non Ajoutée !"));
-			return "ajout";
+			return "ajoutProduit";
 		}
 		
 	}
