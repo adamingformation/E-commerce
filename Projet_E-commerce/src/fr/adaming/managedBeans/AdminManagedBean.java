@@ -17,6 +17,7 @@ import fr.adaming.service.IAdminServive;
 @RequestScoped
 public class AdminManagedBean implements Serializable {
 
+	
 	@EJB
 	private IAdminServive adminService;
 	
