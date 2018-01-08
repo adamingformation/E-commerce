@@ -9,16 +9,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name="paniers")
 
-
-public class Panier extends LigneCommande{
+public class Panier {
 	
 
 	//transformation uml en java
-	@OneToMany(mappedBy="panier",cascade=CascadeType.ALL)
 	private List<LigneCommande> listeLigne;
+
+	public Panier() {
+		super();
+	}
+
+	public Panier(List<LigneCommande> listeLigne) {
+		super();
+		this.listeLigne = listeLigne;
+	}
+
+	public List<LigneCommande> getListeLigne() {
+		return listeLigne;
+	}
+
+	public void setListeLigne(List<LigneCommande> listeLigne) {
+		this.listeLigne = listeLigne;
+	}
+	
 	
 
 }

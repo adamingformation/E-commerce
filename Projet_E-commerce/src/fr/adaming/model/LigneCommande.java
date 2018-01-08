@@ -33,9 +33,7 @@ public class LigneCommande implements Serializable {
 	@JoinColumn(name="commande_id",referencedColumnName="idCommande")
 	private Commande commande;
 	
-	@ManyToOne
-	@JoinColumn(name="panier_id",referencedColumnName="idNumLigne")
-	private Panier panier;
+
 	
 	//3 constructeurs
 	public LigneCommande() {
