@@ -104,7 +104,7 @@ public class LigneCommandeManagedBean implements Serializable{
 		}
 		
 		public String updateLCommande(){
-			LigneCommande verif = lcService.updateLCommande(this.lcommande.getIdNumLigne());
+			LigneCommande verif = lcService.updateLCommande(this.lcommande);
 
 			if (verif != null) {
 				// recuperer la nouvelle liste de la BD
