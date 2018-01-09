@@ -39,7 +39,18 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 		em.remove(lcOut);
 		return 1;
 	}
+	@Override
+	public List<LigneCommande> getAllLCommande(){
+		// construire la requete JPQL
+				String req = "SELECT lc FROM LigneCommande as lc";
 
+				// creer la query
+				Query query = em.createQuery(req);
+
+				// envoyer la requete et recup resultat
+
+				return query.getResultList();
+			}
 
 
 	@Override
@@ -49,7 +60,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	}
 
 	
-	public LigneCommande getLCommande(long idLC){
+	public LigneCommande getLCommandeById(long idLC){
 		LigneCommande lcOut=em.find(LigneCommande.class, idLC);
 		return lcOut;
 	}

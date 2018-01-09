@@ -21,6 +21,8 @@ public class CategorieDaoImpl implements ICategorieDao{
 		this.em = em;
 	}
 
+		
+
 	@Override
 	public List<Categorie> getAllCategorie() {
 		// construire la requete JPQL

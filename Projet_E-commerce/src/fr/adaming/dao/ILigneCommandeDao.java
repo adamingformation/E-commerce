@@ -15,7 +15,10 @@ public LigneCommande addLCommande(LigneCommande LC);
 
 	public LigneCommande updateLCommande (LigneCommande LC);
 	
-	public LigneCommande getLCommande(long idLC);
+	
+	public List<LigneCommande> getAllLCommande();
+	
+	public LigneCommande getLCommandeById(long idLC);
 	
 	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande);
 	

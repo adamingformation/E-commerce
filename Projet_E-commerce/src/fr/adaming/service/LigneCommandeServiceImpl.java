@@ -35,11 +35,15 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 		
 		return LCommandeDao.updateLCommande(LC);
 	}
+	@Override
+	public List<LigneCommande> getAllLCommande(){
+		return LCommandeDao.getAllLCommande();
+	}
 	
 	@Override
-	public LigneCommande getLCommande(long idLC) {
+	public LigneCommande getLCommandeById(long idLC) {
 		
-		return LCommandeDao.getLCommande(idLC);
+		return LCommandeDao.getLCommandeById(idLC);
 	}
 
 	@Override

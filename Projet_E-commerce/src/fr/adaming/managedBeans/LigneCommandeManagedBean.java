@@ -1,15 +1,18 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Admin;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.service.ILigneCommandeService;
 
@@ -19,7 +22,7 @@ public class LigneCommandeManagedBean implements Serializable{
 	
 	//asso uml en java
 	@EJB
-	private ILigneCommandeService lcservice;
+	private ILigneCommandeService lcService;
 	
 	//Attributs
 	private LigneCommande lcommande;
@@ -62,6 +65,60 @@ public class LigneCommandeManagedBean implements Serializable{
 		}
 			
 			
-	
+		public String ajouterLCommande() {
+			LigneCommande verif = lcService.addLCommande(this.lcommande);
+
+			if (verif != null) {
+				// recuperer la nouvelle liste de la BD
+				List<LigneCommande> liste = lcService.getAllLCommande();
+
+				// mettre à jour la liste des Categories dans la session
+				maSession.setAttribute("LCommandeList", liste);
+
+				return "gestionStock";
+
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout n'a pas marché"));
+				return "ajoutLCommande";
+			}
+		}
+		
+		
+		public String deleteLCommande() {
+
+			// pas de retour avec un void sinon comme autre en modifiant en int
+			long verif = lcService.deleteLCommande(this.lcommande.getIdNumLigne());
+			if (verif == 1) {
+				// recuperer la nouvelle liste de la BD
+				List<LigneCommande> liste = lcService.getAllLCommande();
+
+				// mettre à jour la liste des Categories dans la session
+				maSession.setAttribute("LCommandeList", liste);
+
+				return "gestionStock";
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la supression n'a pas marché"));
+				return "supLCommande";
+			}
+
+		}
+		
+		public String updateLCommande(){
+			LigneCommande verif = lcService.updateLCommande(this.lcommande.getIdNumLigne());
+
+			if (verif != null) {
+				// recuperer la nouvelle liste de la BD
+				List<LigneCommande> liste = lcService.getAllLCommande();
+
+				// mettre à jour la liste des Categories dans la session
+				maSession.setAttribute("LCommandeList", liste);
+
+				return "gestionStock";
+
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modfication n'a pas marché"));
+				return "modif";
+			}
+		}
 
 }

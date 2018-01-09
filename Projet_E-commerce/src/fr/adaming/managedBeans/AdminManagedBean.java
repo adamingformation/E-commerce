@@ -13,9 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
 import fr.adaming.service.IAdminServive;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "aMB")
@@ -33,6 +35,10 @@ public class AdminManagedBean implements Serializable {
 	@EJB
 	private IProduitService pService;
 	private List<Produit> listeProduit;
+	
+	@EJB
+	private ILigneCommandeService lcService;
+	private List<LigneCommande> listeLCommande;
 	
 	private HttpSession maSession;
 	
@@ -59,13 +65,15 @@ public class AdminManagedBean implements Serializable {
 		try {
 			Admin aOut = adminService.isExist(this.admin);
 
-			// recup liste catégorie et produit
+			// recup liste catégorie et produit et ligne commande
 			listeCategories = cService.getAllCategorie();
 			listeProduit = pService.getAllProduit();
-
+			listeLCommande=lcService.getAllLCommande();
+			
 			// ajouter les listes deans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList",listeCategories);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitList", listeProduit);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("LCommandeList",listeLCommande);
 
 			// ajouter l'agent dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", aOut);
