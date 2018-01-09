@@ -11,7 +11,7 @@ public interface ICategorieDao {
 	
 	public List<Categorie> getAllCategorie();
 	
-	public List<Categorie> getCategorieById(long id);
+	public Categorie getCategorieById(long id);
 	
 	public Categorie addCategorie(Categorie C);
 	

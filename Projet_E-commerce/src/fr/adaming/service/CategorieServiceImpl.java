@@ -27,9 +27,9 @@ public class CategorieServiceImpl implements ICategorieService{
 	}
 
 	@Override
-	public List<Categorie> getCategorieById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Categorie getCategorieById(long id) {
+		
+		return categorieDao.getCategorieById(id);
 	}
 
 	@Override

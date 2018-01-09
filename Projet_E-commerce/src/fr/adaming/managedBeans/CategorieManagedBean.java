@@ -80,7 +80,7 @@ public class CategorieManagedBean implements Serializable {
 
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout n'a pas marché"));
-			return "categories";
+			return "ajoutCategorie";
 		}
 	}
 
@@ -121,4 +121,20 @@ public class CategorieManagedBean implements Serializable {
 		}
 	}
 
+	
+	public String rechercheCategorie() {
+	Categorie verif = cService.getCategorieById(this.categorie.getIdCategorie());
+				
+		if (verif != null) {
+
+			this.categorie = verif;
+
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("la recherche n'a pas marché"));
+
+		}
+		return "rechercheCategorie";
+	}
 }
+

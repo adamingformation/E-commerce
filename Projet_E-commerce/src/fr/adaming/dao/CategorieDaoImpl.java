@@ -27,9 +27,10 @@ public class CategorieDaoImpl implements ICategorieDao{
 	}
 
 	@Override
-	public List<Categorie> getCategorieById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Categorie getCategorieById(long id) {
+		Categorie c=em.find(Categorie.class,id);
+
+				 return c;
 	}
 
 	@Override
