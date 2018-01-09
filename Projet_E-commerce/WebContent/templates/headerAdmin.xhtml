@@ -13,10 +13,11 @@
 	<h:form>
 		<p:growl id="messages" />
 
-		<p:menubar>
-		
-			<p:menuitem label="Accueil" icon="ui-icon-home" url="gestionStock.xhtml" />
-
+		<p:menubar >
+			<p:submenu label="Accueil" icon="ui-icon-home">
+			<p:menuitem value="Accueil Stock" icon="ui-icon-home" url="gestionStock.xhtml" />
+			<p:menuitem value="Accueil Site" icon="ui-icon-home" url="accueil.xhtml" />
+			</p:submenu>
 
 			<p:submenu label="Catégories" icon="ui-icon-pencil">
 				<p:menuitem value="Toutes" url="rechercheCategorie.xhtml"

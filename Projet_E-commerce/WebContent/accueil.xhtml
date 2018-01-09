@@ -2,12 +2,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://primefaces.org/mobile">
 
 <h:head>
 	<title>Page Accueil</title>
 	<h:outputStylesheet library="css" name="style.css" />
+
 </h:head>
 
 <h:body>
@@ -21,12 +22,43 @@
 		</ui:insert>
 	</div>
 
-	<h3 style="text-align: center">Bienvenue sur le site</h3>
+	<br />
+	<br />
 
-	<h:graphicImage library="images" name="automne_feuille.gif" />
-	<h:graphicImage library="images" name="automne_feuille.gif" />
+	<center>
+		<h:graphicImage library="images" name="solde.jpg" height="50%"
+			width="35%" />
+	</center>
 
 
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true" />
+
+		<h3 style="margin-top: 0"></h3>
+		<p:accordionPanel>
+			<p:tab title="Rateau">
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage library="images" name="rateau1.jpg" height="10%"  width="10%"/>
+					<h:outputText value="" />
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Souflleur">
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage library="images" name="souffleur1.jpg" height="10%"  width="10%" />
+					<h:outputText value="" />
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Halloween">
+				<h:panelGrid columns="2" cellpadding="10">
+					<p:graphicImage library="images" name="sorciere1.jpg" height="10%"  width="10%" />					
+					<p:graphicImage library="images" name="sorciere2.jpg" height="10%"  width="10%" />
+					<h:outputText value="-20%" />
+					<h:outputText value="-50%" />
+				</h:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+		</h:form>
+		
 </h:body>
 
 </html>
