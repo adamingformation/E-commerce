@@ -103,7 +103,7 @@ public class CategorieManagedBean implements Serializable {
 
 			return "gestionStock";
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout n'a pas marché"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la supression n'a pas marché"));
 			return "supCategorie";
 		}
 

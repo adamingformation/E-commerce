@@ -45,7 +45,12 @@ public class CategorieDaoImpl implements ICategorieDao{
 	public long deleteCategorie(long id) {
 		 Categorie c=em.find(Categorie.class,id);
 		 em.remove(c);
-		return  1;
+		 if(c==null){
+			 return  1; 
+		 }else{
+			 return  0;
+		 }
+		
 	}
 
 	@Override
