@@ -11,6 +11,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
 import fr.adaming.service.ICategorieService;
@@ -27,7 +31,9 @@ public class CategorieManagedBean implements Serializable {
 	private Categorie categorie;
 	private Admin admin;
 	private HttpSession maSession;
-
+	private String image;
+	
+	
 	// constructeur vide
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
@@ -136,5 +142,28 @@ public class CategorieManagedBean implements Serializable {
 		}
 		return "rechercheCategorie";
 	}
+	
+	//transformer une image uploadfile en byte array
+	public void upload(FileUploadEvent event){
+		UploadedFile uploadedFile=event.getFile();
+		
+		//recup contenu de l'image en byte array (pixels)
+		byte[] contents=uploadedFile.getContents();
+		//stock dans l'atttribut photo de la catégorie
+		categorie.setPhoto(contents);
+		//tranformer byte array en string (format base64)
+		setImage("data:image/png;base64,"+Base64.encodeBase64String(contents));
+		
+		
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 }
 

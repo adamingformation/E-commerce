@@ -13,7 +13,7 @@ public interface IProduitDao {
 	public List<Produit> getAllProduit();
 	public Produit getProduitById(int id);
 	public int deleteProduitPanier(int id);
-	public int deleteProduitStock(int id);
+	public int deleteProduitStock(long id);
 	public Produit updateProduit(Produit p);
 	
 		

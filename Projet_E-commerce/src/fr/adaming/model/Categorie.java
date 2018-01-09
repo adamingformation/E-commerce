@@ -13,6 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="categories")
@@ -26,6 +27,8 @@ public class Categorie implements Serializable {
 	@Lob
 	private byte[] photo;
 	private String description;
+	@Transient
+	private String image;
 	
 	//transfo uml en java
 	@OneToMany(mappedBy="categorie",cascade=CascadeType.ALL)

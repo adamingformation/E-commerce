@@ -26,7 +26,10 @@
 	
 		Description : <h:inputText value="#{cMB.categorie.description}" />
 
-
+		Photo : <p:fileUpload fileUploadListener="#{cMB.upload}" mode="advanced" auto="true" sizeLimit="100000"
+			allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update="idImg"/>
+		<h:graphicImage id="idImg" value="#{cMB.image}"></h:graphicImage>
+		
 			<p:commandButton value="Ajouter" action="#{cMB.ajouterCategorie}" update="@all" />
 
 		</h:panelGrid>

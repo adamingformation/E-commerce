@@ -135,6 +135,23 @@ public class Produit implements Serializable {
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
+	
+	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public List<LigneCommande> getListeLigne() {
+		return listeLigne;
+	}
+
+	public void setListeLigne(List<LigneCommande> listeLigne) {
+		this.listeLigne = listeLigne;
+	}
 
 	@Override
 	public String toString() {

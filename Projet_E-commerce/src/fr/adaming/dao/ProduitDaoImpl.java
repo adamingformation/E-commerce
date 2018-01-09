@@ -59,7 +59,7 @@ public class ProduitDaoImpl implements IProduitDao {
 
 		// creer query
 		Query query = em.createQuery(req);
-		
+
 		query.setParameter("pId", id);
 
 		try {
@@ -78,10 +78,11 @@ public class ProduitDaoImpl implements IProduitDao {
 		return 0;
 	}
 
-	@Override
-	public int deleteProduitStock(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteProduitStock(long id) {
+		Produit p=em.find(Produit.class, id);
+		em.remove(p);
+		return 1;
+
 	}
 
 	@Override

@@ -5,14 +5,17 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 
+import fr.adaming.dao.ICategorieDao;
 import fr.adaming.dao.IProduitDao;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 @Stateful
 public class ProduitServiceImpl implements IProduitService {
 	
 	@EJB
 	private IProduitDao produitDao;
-	
+	@EJB
+	private ICategorieDao catDao;
 	
 	@Override
 	public Produit addProduitPanier(Produit p) {
@@ -21,8 +24,9 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
-	public Produit addProduitStock(Produit p) {
-		
+	public Produit addProduitStock(Produit p,Categorie c) {
+		Categorie cOut=catDao.getCategorieById(c.getIdCategorie());
+		p.setCategorie(cOut);
 		return produitDao.addProduitStock(p);
 	}
 
@@ -45,9 +49,9 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
-	public int deleteProduitStock(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteProduitStock(long id) {
+		
+		return produitDao.deleteProduitStock(id);
 	}
 
 	@Override
