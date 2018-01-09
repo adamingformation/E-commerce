@@ -22,9 +22,12 @@
 
 	<h1 style="color: aqua; text-align: center">formulaire de modif</h1>
 	<h:form>
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="2" id="idModif">
 		
-		ID:<p:inputText value="#{cMB.categorie.idCategorie}"/>
+		ID:<p:inputText value="#{cMB.categorie.idCategorie}">
+				<p:ajax event="blur" update="idModif messages"
+					listener="#{cMB.rechercheCategorie}"/>
+			</p:inputText>
 		
 		
 		Nom de la Catégorie : <h:inputText
