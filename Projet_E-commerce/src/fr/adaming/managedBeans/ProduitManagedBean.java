@@ -1,34 +1,47 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.codec.binary.Base64;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
+import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "pMB")
-@RequestScoped
+@ViewScoped
 
 public class ProduitManagedBean implements Serializable {
 
 	@EJB
 	private IProduitService produitService;
-	private HttpSession maSession;
+	@EJB
+	private ICategorieService categorieService;
+	
+	
 	private Admin admin;
 	private List<Produit> listeProduit;
 	private Produit produit;
 	private Categorie categorie;
-
+	private List<Categorie> listeCategorie;
+	private HttpSession maSession;
+	private String image;
+	
 	public ProduitManagedBean() {
 		this.produit = new Produit();
 		this.categorie = new Categorie();
@@ -39,10 +52,10 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	// methode qui s'execute apres l'instanviation du managedBean
-	@PostConstruct
-	public void init() {
-		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);		
-	}
+//	@PostConstruct
+//	public void init() {
+//		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);		
+//	}
 
 	public void setProduit(Produit produit) {
 		this.produit = produit;
@@ -77,9 +90,11 @@ public class ProduitManagedBean implements Serializable {
 
 		if (this.produit.getIdProduit() != 0) {
 			// recup nouvelle liste
-			this.listeProduit = produitService.getAllProduit();
+			this.getAllProduit();
+			
 			// mettre a jour la liste dans la sesion
-			maSession.setAttribute("produitListe", this.listeProduit);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitList", listeProduit);
+		
 			return "gestionStock";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produit non Ajoutée !"));
@@ -96,7 +111,7 @@ public class ProduitManagedBean implements Serializable {
 			// recup nouvelle liste
 			this.listeProduit = produitService.getAllProduit();
 			// mettre a jour la liste dans la sesion
-			maSession.setAttribute("produitListe", this.listeProduit);
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitList", listeProduit);
 			return "gestionStock";
 			
 		}else{
@@ -107,4 +122,44 @@ public class ProduitManagedBean implements Serializable {
 		
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	// transformer une image uploadfile en byte array
+	public void upload(FileUploadEvent event) {
+		UploadedFile uploadedFile = event.getFile();
+
+		// recup contenu de l'image en byte array (pixels)
+		byte[] contents = uploadedFile.getContents();
+		// stock dans l'atttribut photo de la catégorie
+		produit.setPhoto(contents);
+		// tranformer byte array en string (format base64)
+		this.image = "data:image/png;base64," + Base64.encodeBase64String(contents);
+
+	}
+
+	public void getAllProduit() {
+
+		List<Produit> listOut = produitService.getAllProduit() ;
+		this.listeProduit = new ArrayList<Produit>();
+
+		for (Produit element : listOut) {
+			if (element.getPhoto() == null) {
+				
+				element.setImage(null);
+
+			} else {
+
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+			}
+
+			this.listeProduit.add(element);
+		}
+
+	}
 }

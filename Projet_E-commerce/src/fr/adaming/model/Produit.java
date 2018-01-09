@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "produits")
@@ -33,6 +34,8 @@ public class Produit implements Serializable {
 	private boolean selectionne = false;
 	@Lob
 	private byte[] photo;
+	@Transient
+	private String image;
 
 	// transformation relation uml en java
 	@ManyToOne
@@ -151,6 +154,17 @@ public class Produit implements Serializable {
 
 	public void setListeLigne(List<LigneCommande> listeLigne) {
 		this.listeLigne = listeLigne;
+	}
+
+	
+	
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override

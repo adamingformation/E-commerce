@@ -1,6 +1,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.codec.binary.Base64;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
@@ -66,8 +69,8 @@ public class AdminManagedBean implements Serializable {
 			Admin aOut = adminService.isExist(this.admin);
 
 			// recup liste catégorie et produit et ligne commande
-			listeCategories = cService.getAllCategorie();
-			listeProduit = pService.getAllProduit();
+			this.getAllCategorie();
+			this.getAllProduit();
 			listeLCommande=lcService.getAllLCommande();
 			
 			// ajouter les listes deans la session
@@ -88,5 +91,43 @@ public class AdminManagedBean implements Serializable {
 		}
 		return "login";
 	}
+	public void getAllCategorie() {
 
+		List<Categorie> listOut = cService.getAllCategorie();
+		this.listeCategories = new ArrayList<Categorie>();
+
+		for (Categorie element : listOut) {
+			if (element.getPhoto() == null) {
+				
+				element.setImage(null);
+
+			} else {
+
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+			}
+
+			this.listeCategories.add(element);
+		}
+
+	}
+	
+	public void getAllProduit() {
+
+		List<Produit> listOut = pService.getAllProduit() ;
+		this.listeProduit = new ArrayList<Produit>();
+
+		for (Produit element : listOut) {
+			if (element.getPhoto() == null) {
+				
+				element.setImage(null);
+
+			} else {
+
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+			}
+
+			this.listeProduit.add(element);
+		}
+
+	}
 }

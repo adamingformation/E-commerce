@@ -1,6 +1,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +9,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +22,7 @@ import fr.adaming.model.Categorie;
 import fr.adaming.service.ICategorieService;
 
 @ManagedBean(name = "cMB")
-@RequestScoped
+@ViewScoped
 public class CategorieManagedBean implements Serializable {
 
 	// asso uml en java
@@ -32,8 +34,8 @@ public class CategorieManagedBean implements Serializable {
 	private Admin admin;
 	private HttpSession maSession;
 	private String image;
-	
-	
+	private List<Categorie> listeCategorie;
+
 	// constructeur vide
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
@@ -72,6 +74,14 @@ public class CategorieManagedBean implements Serializable {
 		this.maSession = maSession;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String ajouterCategorie() {
 		Categorie verif = cService.addCategorie(this.categorie);
 
@@ -108,8 +118,8 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-	
-	public String updateCategorie(){
+
+	public String updateCategorie() {
 		Categorie verif = cService.updateCategorie(this.categorie);
 
 		if (verif != null) {
@@ -127,43 +137,51 @@ public class CategorieManagedBean implements Serializable {
 		}
 	}
 
-	
 	public String rechercheCategorie() {
-	Categorie verif = cService.getCategorieById(this.categorie.getIdCategorie());
-				
+		Categorie verif = cService.getCategorieById(this.categorie.getIdCategorie());
+
 		if (verif != null) {
 
 			this.categorie = verif;
 
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("la recherche n'a pas marché"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la recherche n'a pas marché"));
 
 		}
 		return "rechercheCategorie";
 	}
-	
-	//transformer une image uploadfile en byte array
-	public void upload(FileUploadEvent event){
-		UploadedFile uploadedFile=event.getFile();
-		
-		//recup contenu de l'image en byte array (pixels)
-		byte[] contents=uploadedFile.getContents();
-		//stock dans l'atttribut photo de la catégorie
+
+	// transformer une image uploadfile en byte array
+	public void upload(FileUploadEvent event) {
+		UploadedFile uploadedFile = event.getFile();
+
+		// recup contenu de l'image en byte array (pixels)
+		byte[] contents = uploadedFile.getContents();
+		// stock dans l'atttribut photo de la catégorie
 		categorie.setPhoto(contents);
-		//tranformer byte array en string (format base64)
-		setImage("data:image/png;base64,"+Base64.encodeBase64String(contents));
-		
-		
+		// tranformer byte array en string (format base64)
+		image = "data:image/png;base64," + Base64.encodeBase64String(contents);
+
 	}
 
-	public String getImage() {
-		return image;
+	public void getAllCategorie() {
+
+		List<Categorie> listOut = cService.getAllCategorie();
+		this.listeCategorie = new ArrayList<Categorie>();
+
+		for (Categorie element : listOut) {
+			if (element.getPhoto() == null) {
+				
+				element.setImage(null);
+
+			} else {
+
+				element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+			}
+
+			this.listeCategorie.add(element);
+		}
+
 	}
 
-	public void setImage(String image) {
-		this.image = image;
-	}
-	
 }
-
