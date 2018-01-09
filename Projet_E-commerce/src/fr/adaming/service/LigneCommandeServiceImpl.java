@@ -20,27 +20,35 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 
 	@Override
 	public LigneCommande addLCommande(LigneCommande LC) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return LCommandeDao.addLCommande(LC);
 	}
 
 	@Override
-	public long deleteLCommande(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long deleteLCommande(long idLC) {
+		
+		return LCommandeDao.deleteLCommande(idLC);
 	}
 
 	@Override
 	public LigneCommande updateLCommande(LigneCommande LC) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return LCommandeDao.updateLCommande(LC);
+	}
+	
+	@Override
+	public LigneCommande getLCommande(long idLC) {
+		
+		return LCommandeDao.getLCommande(idLC);
 	}
 
 	@Override
-	public List<LigneCommande> getAllLCommandeByIdCommande(int idCommande) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande) {
+		
+		return LCommandeDao.getAllLCommandeByIdCommande(idCommande);
 	}
+
+
 	
 	
 	

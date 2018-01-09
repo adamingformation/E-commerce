@@ -11,10 +11,12 @@ public interface ILigneCommandeService {
 
 public LigneCommande addLCommande(LigneCommande LC);
 	
-	public long deleteLCommande(long id);
+	public long deleteLCommande(long idLC);
 
 	public LigneCommande updateLCommande (LigneCommande LC);
 	
-	public List<LigneCommande> getAllLCommandeByIdCommande(int idCommande);
+	public LigneCommande getLCommande(long idLC);
+	
+	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande);
 	
 }

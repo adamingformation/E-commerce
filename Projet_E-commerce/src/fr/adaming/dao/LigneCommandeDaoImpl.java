@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import fr.adaming.model.LigneCommande;
 
@@ -26,33 +27,46 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 	@Override
 	public LigneCommande addLCommande(LigneCommande LC) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(LC);
+		return LC;
 	}
 
 
 
 	@Override
-	public long deleteLCommande(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long deleteLCommande(long idLC) {
+		LigneCommande lcOut=em.find(LigneCommande.class, idLC);
+		em.remove(lcOut);
+		return 1;
 	}
 
 
 
 	@Override
 	public LigneCommande updateLCommande(LigneCommande LC) {
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(LC);
+		return LC;
 	}
 
-
-
-	@Override
-	public List<LigneCommande> getAllLCommandeByIdCommande(int idCommande) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public LigneCommande getLCommande(long idLC){
+		LigneCommande lcOut=em.find(LigneCommande.class, idLC);
+		return lcOut;
 	}
 	
-	
+	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande){
+		//construire la requete
+		String req="SELECT lc FROM LigneCommande AS lc WHERE commande_id=:idC";
+		
+		//creation query 
+		Query query=em.createQuery(req);
+		
+		//Spe des param
+		query.setParameter("idC", idCommande);
+		
+		//creation de la nouvelle liste des lignes commandes
+		List<LigneCommande> listeLigneCommande=query.getResultList();
+		
+		return listeLigneCommande;
+	}
 }
