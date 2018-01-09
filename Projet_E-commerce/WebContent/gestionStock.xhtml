@@ -14,34 +14,41 @@
 	<!-- header -->
 	<div style="height: 50px">
 		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
-	<ui:insert name="headerS">
-		<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
-	<ui:include src="/templates/headerAdmin.xhtml"></ui:include>	
-	</ui:insert>
+		<ui:insert name="headerS">
+			<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
+			<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+		</ui:insert>
 	</div>
-	
-	
-<h3>Gestion des Stocks</h3>
 
-<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
 
-    <p:column headerText="ID">
-        <h:outputText value="#{cat.idCategorie}" />
-    </p:column>
- 
-    <p:column headerText="Description">
-        <h:outputText value="#{cat.description}" />
-    </p:column>
- 
-    <p:column headerText="Nom de la Catégorie">
-        <h:outputText value="#{cat.nomCategorie}" />
-    </p:column>
-    
-    <p:column headerText="photo">
-        <h:outputText value="#{cat.photo}" />
-    </p:column>
-    
-</p:dataTable>
+	<h3>Gestion des Stocks</h3>
+
+	<h2 style="text-align: center">Liste des produits</h2>
+	
+	<p:dataTable var="p" value="#{sessionScope.produitListe}">
+
+		<p:column headerText="ID">
+			<h:outputText value="#{p.idProduit}" />
+		</p:column>
+
+		<p:column headerText="Description">
+			<h:outputText value="#{p.description}" />
+		</p:column>
+
+		<p:column headerText="Designation">
+			<h:outputText value="#{p.designation}" />
+		</p:column>
+
+		<p:column headerText="Prix">
+			<h:outputText value="#{p.prix}" />
+		</p:column>
+		<p:column headerText="Quantité">
+			<h:outputText value="#{p.quantite}" />
+		</p:column>
+
+		
+
+	</p:dataTable>
 
 </h:body>
 

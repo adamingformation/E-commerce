@@ -28,14 +28,14 @@ public class ProduitServiceImpl implements IProduitService {
 
 	@Override
 	public List<Produit> getAllProduit() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return produitDao.getAllProduit();
 	}
 
 	@Override
-	public Produit getProduitById() {
-		// TODO Auto-generated method stub
-		return null;
+	public Produit getProduitById(int id) {
+		
+		return produitDao.getProduitById(id);
 	}
 
 	@Override

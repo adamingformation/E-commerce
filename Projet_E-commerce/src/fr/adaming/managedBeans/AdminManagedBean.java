@@ -11,8 +11,10 @@ import javax.faces.context.FacesContext;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 import fr.adaming.service.IAdminServive;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IProduitService;
 
 
 
@@ -22,14 +24,17 @@ public class AdminManagedBean implements Serializable {
 
 	
 	@EJB
-	private IAdminServive adminService;
-	
+	private IAdminServive adminService;	
 	private Admin admin;
 	
 	@EJB
-	private ICategorieService cService;
-	
+	private ICategorieService cService;	
 	private List<Categorie> listeCategories;
+	
+	@EJB
+	private IProduitService pService;
+	private List<Produit> listeProduit;
+	
 
 	public AdminManagedBean() {
 		this.admin=new Admin();
@@ -47,16 +52,17 @@ public class AdminManagedBean implements Serializable {
 		try{
 		Admin aOut=adminService.isExist(this.admin);
 		
-		//recup liste catégorie
-				List<Categorie> listeCategories=cService.getAllCategorie();
+			//recup liste catégorie				
+			listeProduit=pService.getAllProduit();
 				
-				//ajouter la liste deans la session
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList", listeCategories);
+			//ajouter la liste deans la session				
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitList", listeProduit);
 			
 			//ajouter l'agent dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", aOut);
 			
 			return "gestionStock";
+			
 		}catch (Exception e){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Admin n'existe pas"));
 		}
