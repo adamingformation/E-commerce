@@ -7,34 +7,39 @@
 
 <h:head>
 	<title>Page categories</title>
+	
 </h:head>
 
 <h:body>
 	<!-- header -->
 	<div style="height: 50px">
 		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
-	<ui:insert name="headerS">
-		<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
-	<ui:include src="/templates/headerAdmin.xhtml"></ui:include>	
-	</ui:insert>
+		<ui:insert name="headerS">
+			<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
+			<ui:include src="/templates/headerAdmin.xhtml"></ui:include>
+		</ui:insert>
 	</div>
 
-<h1 style="color: aqua;text-align: center">formulaire d'ajout</h1>
+	<h1 style="color: aqua; text-align: center">formulaire de modif</h1>
 	<h:form>
 		<h:panelGrid columns="2">
-		Nom de la Catégorie : <h:inputText value="#{cMB.categorie.nomCategorie}" />
+		
+		ID:<p:inputText value="#{cMB.categorie.idCategorie}"/>
+
+		
+		
+		Nom de la Catégorie : <h:inputText
+				value="#{cMB.categorie.nomCategorie}" />
 	
 		Description : <h:inputText value="#{cMB.categorie.description}" />
 
 
-			<p:commandButton value="Ajouter" action="#{cMB.ajouterCategorie}" update="@all" />
+			<p:commandButton value="Modifier" action="#{cMB.updateCategorie}"
+				update="@all" />
 
 		</h:panelGrid>
 	</h:form>
-	<h:messages style="color:red" />
-
-	
-
+	<p:messages id="messages" showDetail="true" closable="true"/>
 </h:body>
 
 </html>

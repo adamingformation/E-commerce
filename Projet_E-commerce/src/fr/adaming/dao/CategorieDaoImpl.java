@@ -41,15 +41,16 @@ public class CategorieDaoImpl implements ICategorieDao{
 	}
 
 	@Override
-	public int deleteCategorie(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public long deleteCategorie(long id) {
+		 Categorie c=em.find(Categorie.class,id);
+		 em.remove(c);
+		return  1;
 	}
 
 	@Override
 	public Categorie updateCategorie(Categorie C) {
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(C);
+		return C;
 	}
 	
 	

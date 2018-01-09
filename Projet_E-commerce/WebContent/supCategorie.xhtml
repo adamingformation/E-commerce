@@ -1,15 +1,17 @@
+<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-
 <h:head>
-	<title>Page categories</title>
-</h:head>
+<title>Ma Page sup</title>
 
+</h:head>
 <h:body>
+
 	<!-- header -->
 	<div style="height: 50px">
 		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
@@ -19,22 +21,17 @@
 	</ui:insert>
 	</div>
 
-<h1 style="color: aqua;text-align: center">formulaire d'ajout</h1>
-	<h:form>
+<h1 style="color: aqua;text-align: center">formulaire de sup</h1>
+
+<h:form>
 		<h:panelGrid columns="2">
-		Nom de la Catégorie : <h:inputText value="#{cMB.categorie.nomCategorie}" />
-	
-		Description : <h:inputText value="#{cMB.categorie.description}" />
+		
+		ID:<p:inputText value="#{cMB.categorie.idCategorie}"/>
 
-
-			<p:commandButton value="Ajouter" action="#{cMB.ajouterCategorie}" update="@all" />
-
+			<p:commandButton value="sup la Catégorie" action="#{cMB.deleteCategorie}" icon="ui-icon-disk" update="@all"/>
 		</h:panelGrid>
-	</h:form>
-	<h:messages style="color:red" />
 
-	
+	</h:form>
 
 </h:body>
-
 </html>

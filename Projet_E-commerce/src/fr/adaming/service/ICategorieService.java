@@ -15,7 +15,7 @@ public interface ICategorieService {
 	
 	public Categorie addCategorie(Categorie C);
 	
-	public int deleteCategorie(int id);
+	public long deleteCategorie(long id);
 
 	public Categorie updateCategorie (Categorie C);
 }

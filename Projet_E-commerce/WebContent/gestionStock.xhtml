@@ -23,9 +23,25 @@
 	
 <h3>Gestion des Stocks</h3>
 
+<p:dataTable var="cat" value="#{sessionScope.categoriesList}">
 
-
-	
+    <p:column headerText="ID">
+        <h:outputText value="#{cat.idCategorie}" />
+    </p:column>
+ 
+    <p:column headerText="Description">
+        <h:outputText value="#{cat.description}" />
+    </p:column>
+ 
+    <p:column headerText="Nom de la Catégorie">
+        <h:outputText value="#{cat.nomCategorie}" />
+    </p:column>
+    
+    <p:column headerText="photo">
+        <h:outputText value="#{cat.photo}" />
+    </p:column>
+    
+</p:dataTable>
 
 </h:body>
 

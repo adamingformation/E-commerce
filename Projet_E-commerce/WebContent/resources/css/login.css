@@ -1,0 +1,5 @@
+body{
+	background-image:url("#{resource['images/automne.gif']}");
+	background-repeat:no-repeat;
+	background-size: cover;
+}
