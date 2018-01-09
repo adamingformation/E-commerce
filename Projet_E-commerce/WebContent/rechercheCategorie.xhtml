@@ -35,6 +35,7 @@
 	
 	
 	<p:dataTable var="cate" value="#{cMB.categorie}">
+	
     <p:column headerText="ID">
         <h:outputText value="#{cate.idCategorie}" />
     </p:column>
@@ -47,9 +48,6 @@
         <h:outputText value="#{cate.nomCategorie}" />
     </p:column>
     
-    <p:column headerText="photo">
-        <h:outputText value="#{cate.photo}" />
-    </p:column>
 </p:dataTable>
 
 <h:messages style="color:red"/>

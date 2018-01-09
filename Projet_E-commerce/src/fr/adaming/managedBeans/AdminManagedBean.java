@@ -16,28 +16,24 @@ import fr.adaming.service.IAdminServive;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
-
-
-@ManagedBean(name="aMB")
+@ManagedBean(name = "aMB")
 @RequestScoped
 public class AdminManagedBean implements Serializable {
 
-	
 	@EJB
-	private IAdminServive adminService;	
+	private IAdminServive adminService;
 	private Admin admin;
-	
+
 	@EJB
-	private ICategorieService cService;	
+	private ICategorieService cService;
 	private List<Categorie> listeCategories;
-	
+
 	@EJB
 	private IProduitService pService;
 	private List<Produit> listeProduit;
-	
 
 	public AdminManagedBean() {
-		this.admin=new Admin();
+		this.admin = new Admin();
 	}
 
 	public Admin getAdmin() {
@@ -47,28 +43,29 @@ public class AdminManagedBean implements Serializable {
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
 	}
-	
-	public String seConnecter(){
-		try{
-		Admin aOut=adminService.isExist(this.admin);
-		
-			//recup liste catégorie				
-			listeProduit=pService.getAllProduit();
-				
-			//ajouter la liste deans la session				
+
+	public String seConnecter() {
+		try {
+			Admin aOut = adminService.isExist(this.admin);
+
+			// recup liste catégorie et produit
+			listeCategories = cService.getAllCategorie();
+			listeProduit = pService.getAllProduit();
+
+			// ajouter les listes deans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("categoriesList",
+					listeCategories);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("produitList", listeProduit);
-			
-			//ajouter l'agent dans la session
+
+			// ajouter l'agent dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", aOut);
-			
+
 			return "gestionStock";
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Admin n'existe pas"));
 		}
-			return "login";
-		}
-		
-		
+		return "login";
 	}
 
+}
