@@ -117,8 +117,23 @@ public class LigneCommandeManagedBean implements Serializable{
 
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modfication n'a pas marché"));
-				return "modif";
+				return "modifLCommande";
 			}
 		}
 
+		
+		public String rechercheLCommande() {
+			LigneCommande verif = lcService.getLCommandeById(this.lcommande.getIdNumLigne());
+						
+				if (verif != null) {
+
+					this.lcommande = verif;
+
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("la recherche n'a pas marché"));
+
+				}
+				return "rechercheLCommande";
+			}
 }
