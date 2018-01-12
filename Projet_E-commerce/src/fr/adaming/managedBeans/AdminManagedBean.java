@@ -1,5 +1,8 @@
 package fr.adaming.managedBeans;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,4 +133,6 @@ public class AdminManagedBean implements Serializable {
 		}
 
 	}
+	
+
 }

@@ -1,5 +1,7 @@
 package fr.adaming.managedBeans;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.Base64;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
@@ -41,6 +51,8 @@ public class ProduitManagedBean implements Serializable {
 	private List<Categorie> listeCategorie;
 	private HttpSession maSession;
 	private String image;
+	//chemin export du pdf
+	public static final String chemin="C://Users//Adaming//Desktop//PDF//pdfproduit.pdf";
 	
 	public ProduitManagedBean() {
 		this.produit = new Produit();
@@ -162,4 +174,62 @@ public class ProduitManagedBean implements Serializable {
 		}
 
 	}
+	
+	public void createPDF(){
+		Document document = new Document();
+	    try 
+	    {
+	      PdfWriter.getInstance(document, new FileOutputStream(chemin));
+	      document.open();
+	      
+	      document.add(new Paragraph("PDF recaptitulatif"));
+	      document.add(new Paragraph("\n"));
+	      document.add(produitTableau());
+	      
+	      
+	      
+	    } catch (DocumentException de) {
+	      de.printStackTrace();
+	    } catch (IOException ioe) {
+	      ioe.printStackTrace();
+	    }
+	   
+	    document.close();
+	    
+	  }
+		
+	//Classe permettant de dessiner un tableau.
+
+	  public  PdfPTable produitTableau()
+	  {
+		  List<Produit> listOut = produitService.getAllProduit() ;
+		  
+			
+	      //On créer un objet table dans lequel on intialise sa taille.
+	      PdfPTable table = new PdfPTable(3);
+	      
+	      //On créer l'objet cellule.
+	      PdfPCell cell;
+	      
+	      cell = new PdfPCell(new Phrase("Information Liste Produit"));
+	      cell.setColspan(3);
+	      table.addCell(cell);
+	 
+	      //contenu du tableau.
+	      for(Produit e : listOut){
+	    	  //ajout colonne produit
+	    	  cell = new PdfPCell(new Phrase("Produit "+e.getIdProduit()));
+		      cell.setRowspan(2);
+		      table.addCell(cell); 
+		      //ajout colonne specifique au produit
+		      table.addCell("Designation "+e.getDesignation());
+		      table.addCell("Description "+e.getDescription());
+		      table.addCell("Prix "+e.getPrix());
+		      table.addCell("Quantité "+e.getQuantite());
+	      }
+	      
+	      
+	      return table;  
+	  }
+	
 }
