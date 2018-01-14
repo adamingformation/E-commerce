@@ -143,6 +143,8 @@ public class CategorieManagedBean implements Serializable {
 		if (verif != null) {
 
 			this.categorie = verif;
+			
+			
 
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la recherche n'a pas marché"));

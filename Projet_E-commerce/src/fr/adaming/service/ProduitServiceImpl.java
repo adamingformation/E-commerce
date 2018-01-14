@@ -17,6 +17,9 @@ public class ProduitServiceImpl implements IProduitService {
 	@EJB
 	private ICategorieDao catDao;
 	
+	private List<Produit> listeCat1;
+	private List<Produit> listeCat2;
+	
 	@Override
 	public Produit addProduitPanier(Produit p) {
 		
@@ -58,6 +61,26 @@ public class ProduitServiceImpl implements IProduitService {
 	public Produit updateProduit(Produit p) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+
+	public List<Produit> trierCat() {
+		// recup liste produit
+		List<Produit> liste = produitDao.getAllProduit();
+
+		for (Produit p : liste) {
+			if (p.getCategorie().getIdCategorie() == 1) {
+				listeCat1.add(p);
+				return listeCat1;
+
+			} else {
+
+				listeCat2.add(p);
+				return listeCat2;
+			}
+
+		}
+		return liste;
 	}
 
 }

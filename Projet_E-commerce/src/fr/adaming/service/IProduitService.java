@@ -15,5 +15,5 @@ public interface IProduitService {
 	public int deleteProduitPanier(int id);
 	public int deleteProduitStock(long id);
 	public Produit updateProduit(Produit p);
-
+	public List<Produit> trierCat();
 }

@@ -6,7 +6,7 @@
 
 
 <h:head>
-	<title>Page Accueil</title>
+	<title>Page Produit</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 
@@ -47,11 +47,9 @@
 					<h:outputText value="#{produit.quantite}" />
 					
 					<h:outputText value="Prix:" />
-					<s><h:outputText value="#{produit.prix}" /></s>
+					<h:outputText value="#{produit.prix}" />
 					
-					<h:outputText value="Prix Soldé: " />
-					<h:outputText value="#{produit.prixSolde}" />
-				
+
 				</p:panelGrid>
 			</p:outputPanel>
 		</p:dataGrid>

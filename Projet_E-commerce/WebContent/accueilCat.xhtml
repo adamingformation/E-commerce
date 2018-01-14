@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Page Accueil Cat</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+
+	<div style="height: 50px">
+		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
+		<ui:insert name="header">
+			<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
+			<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+
+	<br />
+	<br />
+	<center>
+	<h:form>
+	<p:commandLink action="#{pMB.seConnecterCat1}"><h:graphicImage library="images" name="outils.jpg" height="50%"
+			width="35%" /></p:commandLink>
+	</h:form>	
+	</center>
+	
+
+</h:body>
+
+</html>

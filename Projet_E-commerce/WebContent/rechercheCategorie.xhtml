@@ -21,14 +21,21 @@
 		</ui:insert>
 	</div>
 
-	<h1 style="color: aqua; text-align: center">formulaire de
+	<h1 style="color: white; text-align: center">Formulaire de
 		recherche</h1>
 
 	<h:form>
 		<h:panelGrid columns="2">
 		
-		ID:<p:inputText value="#{cMB.categorie.idCategorie}" />
-
+		Nom:
+			<h:selectOneMenu id="NomCat" value="#{cMB.categorie.idCategorie}"
+				style="width:150px">
+				<f:selectItem itemLabel="Choisissez une cat " itemValue=""
+					noSelectionOption="true" />
+				<f:selectItems var="c" value="#{sessionScope.categoriesList}"
+					itemLabel="#{c.idCategorie}" itemValue="#{c.idCategorie}" />
+			</h:selectOneMenu>
+			<br />
 			<p:commandButton value="Rechercher"
 				action="#{cMB.rechercheCategorie}" icon="ui-icon-disk" update="@all" />
 		</h:panelGrid>
