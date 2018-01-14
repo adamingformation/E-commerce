@@ -84,7 +84,7 @@ public class AdminManagedBean implements Serializable {
 			// ajouter l'agent dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", aOut);
 			
-			maSession.setAttribute("produitListe", this.listeProduit);
+			//maSession.setAttribute("produitListe", this.listeProduit);
 			
 			
 			return "gestionStock";

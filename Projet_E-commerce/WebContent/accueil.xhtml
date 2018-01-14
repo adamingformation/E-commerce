@@ -18,47 +18,23 @@
 		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
 		<ui:insert name="header">
 			<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
-			<ui:include src="/templates/header.xhtml"></ui:include>
+			<ui:include src="/templates/headerAccueil.xhtml"></ui:include>
 		</ui:insert>
 	</div>
 
 	<br />
 	<br />
-
 	<center>
-		<h:graphicImage library="images" name="solde.jpg" height="50%"
-			width="35%" />
+	<h:form>
+	<p:commandLink action="#{pMB.seConnecter}"><h:graphicImage library="images" name="solde.jpg" height="50%"
+			width="35%" /></p:commandLink>
+	</h:form>	
 	</center>
 
+	
 
-	<h:form id="form">
-		<p:growl id="msgs" showDetail="true" />
 
-		<h3 style="margin-top: 0"></h3>
-		<p:accordionPanel>
-			<p:tab title="Rateau">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage library="images" name="rateau1.jpg" height="10%"  width="10%"/>
-					<h:outputText value="" />
-				</h:panelGrid>
-			</p:tab>
-			<p:tab title="Souflleur">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage library="images" name="souffleur1.jpg" height="10%"  width="10%" />
-					<h:outputText value="" />
-				</h:panelGrid>
-			</p:tab>
-			<p:tab title="Halloween">
-				<h:panelGrid columns="2" cellpadding="10">
-					<p:graphicImage library="images" name="sorciere1.jpg" height="10%"  width="10%" />					
-					<p:graphicImage library="images" name="sorciere2.jpg" height="10%"  width="10%" />
-					<h:outputText value="-20%" />
-					<h:outputText value="-50%" />
-				</h:panelGrid>
-			</p:tab>
-		</p:accordionPanel>
-		</h:form>
-		
+
 </h:body>
 
 </html>

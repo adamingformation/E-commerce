@@ -23,6 +23,8 @@ public class LigneCommande implements Serializable {
 	private Long idNumLigne;
 	private int quantite;
 	private int prix;
+
+	
 	
 	//transformation uml en java
 	@ManyToOne
@@ -72,6 +74,8 @@ public class LigneCommande implements Serializable {
 	public void setIdNumLigne(Long idNumLigne) {
 		this.idNumLigne = idNumLigne;
 	}
+	
+
 	@Override
 	public String toString() {
 		return "LigneCommande [idNumLigne=" + idNumLigne + ", quantite=" + quantite + ", prix=" + prix + "]";

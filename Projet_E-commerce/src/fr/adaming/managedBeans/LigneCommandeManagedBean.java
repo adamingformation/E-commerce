@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
 import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Produit;
 import fr.adaming.service.ILigneCommandeService;
+import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "lcMB")
 @RequestScoped
@@ -24,10 +26,14 @@ public class LigneCommandeManagedBean implements Serializable{
 	@EJB
 	private ILigneCommandeService lcService;
 	
+	
 	//Attributs
 	private LigneCommande lcommande;
 	private Admin admin;
 	private HttpSession maSession;
+	
+	
+	
 	public LigneCommandeManagedBean() {
 		this.lcommande=new LigneCommande();
 	}
