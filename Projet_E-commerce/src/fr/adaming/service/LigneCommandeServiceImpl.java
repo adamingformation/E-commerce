@@ -7,6 +7,7 @@ import javax.ejb.Stateful;
 
 import fr.adaming.dao.ILigneCommandeDao;
 import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Produit;
 
 @Stateful
 public class LigneCommandeServiceImpl implements ILigneCommandeService{
@@ -50,6 +51,12 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande) {
 		
 		return LCommandeDao.getAllLCommandeByIdCommande(idCommande);
+	}
+
+	@Override
+	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
+		
+		return LCommandeDao.calculPrixLigneCommande(lc, p);
 	}
 
 

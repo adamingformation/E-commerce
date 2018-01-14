@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="commandes")
@@ -23,7 +25,9 @@ public class Commande implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idCommande;
-	private Date dateCommande;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dateCommande= new Date();
 	
 	//transformation uml en java
 	@OneToMany(mappedBy="commande",cascade=CascadeType.ALL)

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Produit;
 
 @Stateless
 public class LigneCommandeDaoImpl implements ILigneCommandeDao {
@@ -79,5 +80,15 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 		List<LigneCommande> listeLigneCommande=query.getResultList();
 		
 		return listeLigneCommande;
+	}
+
+
+
+	@Override
+	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
+
+		double prixTotal = p.getPrix() * lc.getQuantite();
+		
+		return prixTotal;
 	}
 }

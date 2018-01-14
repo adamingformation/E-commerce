@@ -75,7 +75,20 @@ public class LigneCommande implements Serializable {
 		this.idNumLigne = idNumLigne;
 	}
 	
+	
 
+	public Produit getProduit() {
+		return produit;
+	}
+	public void setProduit(Produit produit) {
+		this.produit = produit;
+	}
+	public Commande getCommande() {
+		return commande;
+	}
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
 	@Override
 	public String toString() {
 		return "LigneCommande [idNumLigne=" + idNumLigne + ", quantite=" + quantite + ", prix=" + prix + "]";
