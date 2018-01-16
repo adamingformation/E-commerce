@@ -9,7 +9,7 @@ import fr.adaming.model.Categorie;
 @Local
 public interface ICategorieService {
 
-	public List<Categorie> getAllCategorie();
+public List<Categorie> getAllCategorie();
 	
 	public Categorie getCategorieById(long id);
 	

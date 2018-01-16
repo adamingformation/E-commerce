@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import fr.adaming.model.Commande;
 
@@ -23,32 +24,58 @@ public class CommandeDaoImpl implements ICommandeDao {
 	// méthode
 	@Override
 	public Commande addCommande(Commande c) {
-		// TODO Auto-generated method stub
-		return null;
+		em.persist(c);
+		return c;
 	}
 
 	@Override
 	public Commande updateCommande(Commande c) {
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(c);
+		return c;
 	}
 
 	@Override
 	public void deleteCommande(long idCommande) {
-		// TODO Auto-generated method stub
+		Commande cOut = em.find(Commande.class, idCommande);
+		em.remove(cOut);
 
 	}
 
 	@Override
-	public List<Commande> gettAllCommande() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Commande> gettAllCommande(long idCl) {
+		// construre la requête
+		String req = "SELECT c FROM Commande AS c WHERE c.client.idClient=:PidCl";
+
+		// création du query
+		Query query = em.createQuery(req);
+
+		// Spécification des paramètres
+		query.setParameter("PidCl", idCl);
+
+		// création de la nouvelle liste des lignes commandes
+		List<Commande> listeCommande = query.getResultList();
+
+		return listeCommande;
 	}
 
 	@Override
 	public Commande getCommande(long idCommande) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return em.find(Commande.class, idCommande);
+	}
+	
+	@Override
+	public Commande getCommandeByIdClNULL(long idCl) {
+		// construre la requête
+		String req = "SELECT c FROM Commande AS c WHERE c.client.idClient IS NULL";
+
+		// création du query
+		Query query = em.createQuery(req);
+
+		// création de la nouvelle liste des lignes commandes
+		Commande cOut = (Commande) query.getSingleResult();
+
+		return cOut;
 	}
 
 }

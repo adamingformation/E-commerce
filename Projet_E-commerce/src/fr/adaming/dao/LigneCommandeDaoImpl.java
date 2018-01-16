@@ -35,22 +35,25 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 
 
 	@Override
-	public long deleteLCommande(long idLC) {
+	public void deleteLCommande(long idLC) {
 		LigneCommande lcOut=em.find(LigneCommande.class, idLC);
 		em.remove(lcOut);
-		return 1;
 	}
 	@Override
 	public List<LigneCommande> getAllLCommande(){
 		// construire la requete JPQL
-				String req = "SELECT lc FROM LigneCommande as lc";
+				String req = "SELECT lc FROM LigneCommande as lc WHERE lc.commande IS NULL";
 
 				// creer la query
 				Query query = em.createQuery(req);
+				System.out.println("query : " + query);
+				// mettre les parametres
+				System.out.println("liste avant evoyer liste : " + query.getResultList());
+				// création de la nouvelle liste des lignes commandes
+				List<LigneCommande> listeLCommande = query.getResultList();
+				System.out.println("liste : " + listeLCommande);
 
-				// envoyer la requete et recup resultat
-
-				return query.getResultList();
+				return listeLCommande;
 			}
 
 
@@ -68,18 +71,18 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	
 	public List<LigneCommande> getAllLCommandeByIdCommande(long idCommande){
 		//construire la requete
-		String req="SELECT lc FROM LigneCommande AS lc WHERE commande_id=:idC";
+		String req="SELECT lc FROM LigneCommande AS lc WHERE lc.commande.idCommande=:pidC";
 		
 		//creation query 
 		Query query=em.createQuery(req);
 		
 		//Spe des param
-		query.setParameter("idC", idCommande);
+		query.setParameter("pidC", idCommande);
 		
 		//creation de la nouvelle liste des lignes commandes
-		List<LigneCommande> listeLigneCommande=query.getResultList();
+		List<LigneCommande> listeLCommande=query.getResultList();
 		
-		return listeLigneCommande;
+		return listeLCommande;
 	}
 
 
@@ -87,8 +90,10 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	@Override
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
 
+		System.out.println("lc :" + lc + "\n" + "p : " + p);
+		System.out.println("p.getprix : " + p.getPrix());
 		double prixTotal = p.getPrix() * lc.getQuantite();
-		
+		System.out.println("prix :" + prixTotal);
 		return prixTotal;
 	}
 }

@@ -54,7 +54,7 @@ public class ProduitManagedBean implements Serializable {
 	@EJB
 	private ICategorieService categorieService;
 
-	private Admin admin;
+	
 	private List<Produit> listeProduit;
 	private Produit produit;
 	private Categorie categorie;
@@ -83,15 +83,7 @@ public class ProduitManagedBean implements Serializable {
 
 	public void setProduit(Produit produit) {
 		this.produit = produit;
-	}
-
-	public Admin getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
+	} 
 
 	public List<Produit> getListeProduit() {
 		return listeProduit;
@@ -100,7 +92,13 @@ public class ProduitManagedBean implements Serializable {
 	public void setListeProduit(List<Produit> listeProduit) {
 		this.listeProduit = listeProduit;
 	}
+	public String getImage() {
+		return image;
+	}
 
+	public void setImage(String image) {
+		this.image = image;
+	}
 	public Categorie getCategorie() {
 		return categorie;
 	}
@@ -145,13 +143,7 @@ public class ProduitManagedBean implements Serializable {
 
 	}
 
-	public String getImage() {
-		return image;
-	}
 
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	// transformer une image uploadfile en byte array
 	public void upload(FileUploadEvent event) {

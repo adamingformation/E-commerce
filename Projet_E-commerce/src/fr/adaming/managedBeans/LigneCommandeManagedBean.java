@@ -1,6 +1,7 @@
 package fr.adaming.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Produit;
+import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
 
@@ -25,26 +28,64 @@ public class LigneCommandeManagedBean implements Serializable{
 	//asso uml en java
 	@EJB
 	private ILigneCommandeService lcService;
+	@EJB
+	private IProduitService produitService;
+	@EJB
+	private ICommandeService commandeService;
 	
 	
 	//Attributs
+	private Produit produit;
+	private Commande commande;
 	private LigneCommande lcommande;
 	private Admin admin;
 	private HttpSession maSession;
-	
+	List<LigneCommande> listeLigneCommande;
+	private int idCommande;
 	
 	
 	public LigneCommandeManagedBean() {
 		this.lcommande=new LigneCommande();
+		this.produit = new Produit();
+		this.listeLigneCommande = new ArrayList<LigneCommande>();
 	}
 	
-	// methode qui s'execute apres l'instanciation du managedBean
-		@PostConstruct
-		public void init() {
-			// recup session
-			this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-			// recup agent a partir de la session
-			this.admin = (Admin) maSession.getAttribute("adminSession");}
+		
+		public Produit getProduit() {
+			return produit;
+		}
+
+		public void setProduit(Produit produit) {
+			this.produit = produit;
+		}
+
+		public Commande getCommande() {
+			return commande;
+		}
+
+		public void setCommande(Commande commande) {
+			this.commande = commande;
+		}
+
+		public int getIdCommande() {
+			return idCommande;
+		}
+
+		public void setIdCommande(int idCommande) {
+			this.idCommande = idCommande;
+		}
+
+		public void setLcService(ILigneCommandeService lcService) {
+			this.lcService = lcService;
+		}
+
+		public void setProduitService(IProduitService produitService) {
+			this.produitService = produitService;
+		}
+
+		public void setCommandeService(ICommandeService commandeService) {
+			this.commandeService = commandeService;
+		}
 
 		public LigneCommande getLcommande() {
 			return lcommande;
@@ -71,37 +112,58 @@ public class LigneCommandeManagedBean implements Serializable{
 		}
 			
 			
-		public String ajouterLCommande() {
-			LigneCommande verif = lcService.addLCommande(this.lcommande);
+		public String ajouterLigneCommande() {
+			// récupération du produit par l'id entré
+			this.produit = produitService.getProduitById(this.produit.getIdProduit());
+			// spécification du produit pour la ligne de commande
+			this.lcommande.setProduit(this.produit);
+			// calcul du prix total
+			this.lcommande.setPrix((int) lcService.calculPrixLigneCommande(this.lcommande, this.produit));
 
-			if (verif != null) {
-				// recuperer la nouvelle liste de la BD
-				List<LigneCommande> liste = lcService.getAllLCommande();
+			if(this.produit.getQuantite() >= 0) {
+				// modification de la quantité de produit en stock
+				int quantiteRestante = this.produit.getQuantite() - this.lcommande.getQuantite();
 
-				// mettre à jour la liste des Categories dans la session
-				maSession.setAttribute("LCommandeList", liste);
+				// Modifier la quantité de produit en stock restant
+				if (quantiteRestante > 0) {
+					this.produit.setQuantite(quantiteRestante);
+					produitService.updateProduit(this.produit);
 
-				return "gestionStock";
+					// ajout de la ligne dans la base de données
+					this.lcommande = lcService.addLCommande(this.lcommande);
+					System.out.println(this.lcommande);
+				}
 
-			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout n'a pas marché"));
-				return "ajoutLCommande";
 			}
+			//pour envoyer les lignes commandes dans le panier
+			//récupérer toutes les lignes de commandes avec un id commande null (car non validée)
+			this.listeLigneCommande=lcService.getAllLCommande();
+			
+			//Passer la liste des lignes commandes dans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier", this.listeLigneCommande);
+			
+
+			
+			if (this.lcommande.getIdNumLigne() != 0) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("la ligne de commande est  ajoutée"));
+				return "afficherListeProduitClient";
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage("l'ajout de la ligne de commande a échouée"));
+				return "afficherListeProduitClient";
+			}
+
 		}
 		
 		
 		public String deleteLCommande() {
 
 			// pas de retour avec un void sinon comme autre en modifiant en int
-			long verif = lcService.deleteLCommande(this.lcommande.getIdNumLigne());
-			if (verif == 1) {
-				// recuperer la nouvelle liste de la BD
-				List<LigneCommande> liste = lcService.getAllLCommande();
-
-				// mettre à jour la liste des Categories dans la session
-				maSession.setAttribute("LCommandeList", liste);
-
-				return "gestionStock";
+			lcService.deleteLCommande(this.lcommande.getIdNumLigne());
+			LigneCommande lcOut = lcService.getLCommandeById(this.lcommande.getIdNumLigne());
+			if (lcOut == null) {
+				return "accueil";
 			} else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la supression n'a pas marché"));
 				return "supLCommande";
@@ -110,20 +172,18 @@ public class LigneCommandeManagedBean implements Serializable{
 		}
 		
 		public String updateLCommande(){
-			LigneCommande verif = lcService.updateLCommande(this.lcommande);
-
-			if (verif != null) {
-				// recuperer la nouvelle liste de la BD
-				List<LigneCommande> liste = lcService.getAllLCommande();
-
-				// mettre à jour la liste des Categories dans la session
-				maSession.setAttribute("LCommandeList", liste);
-
-				return "gestionStock";
-
+			// récupération du produit par id choisi
+			this.produit = produitService.getProduitById(this.produit.getIdProduit());
+			// spécification du produit pour la ligne de commande
+			this.lcommande.setProduit(this.produit);
+			// calcul du prix total
+			this.lcommande.setPrix((int) lcService.calculPrixLigneCommande(this.lcommande, this.produit));
+			// update de la ligne dans la base de données
+			this.lcommande = lcService.updateLCommande(this.lcommande);
+			if (this.lcommande != null) {
+				return "accueil";
 			} else {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modfication n'a pas marché"));
-				return "modifLCommande";
+				return "modifierLCommande";
 			}
 		}
 

@@ -7,12 +7,6 @@
 	<jta-data-source>java:/ecommerce1</jta-data-source>
 	
 	<!-- Enumération des classes persistentes -->
-		<class>fr.adaming.model.Categorie</class>
-		<class>fr.adaming.model.LigneCommande</class>
-		<class>fr.adaming.model.Client</class>
-		<class>fr.adaming.model.Produit</class>
-		<class>fr.adaming.model.Commande</class>
-		<class>fr.adaming.model.Admin</class>
 		
 		
 		<!-- Assignation des valeurs aux prop de hibernate -->

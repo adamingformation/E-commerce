@@ -46,9 +46,15 @@ public class CommandeServiceImpl implements ICommandeService{
 	}
 
 	@Override
-	public List<Commande> gettAllCommande() {
-		List<Commande> listeco = commandeDao.gettAllCommande();
+	public List<Commande> gettAllCommande(long idCl) {
+		List<Commande> listeco = commandeDao.gettAllCommande(idCl);
 		return listeco;
+	}
+	
+	@Override
+	public Commande getCommandeByIdClNULL(long idCl) {
+		Commande cOut = commandeDao.getCommandeByIdClNULL(idCl);
+		return cOut;
 	}
 	
 	

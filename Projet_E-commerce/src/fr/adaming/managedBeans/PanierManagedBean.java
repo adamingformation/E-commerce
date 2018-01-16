@@ -9,8 +9,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import fr.adaming.model.Commande;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
+import fr.adaming.service.ICommandeService;
 import fr.adaming.service.ILigneCommandeService;
 
 @ManagedBean(name = "paMB")
@@ -20,10 +22,14 @@ public class PanierManagedBean implements Serializable {
 	@EJB
 	ILigneCommandeService ligneCoService;
 
+	@EJB
+	ICommandeService cService;
+
 	private Panier panier;
 	private LigneCommande ligneCommande;
 	private List<LigneCommande> listeLignecommande;
-
+	private long idCommande;
+	private Commande commande;
 
 	// constructeur
 	public PanierManagedBean() {
@@ -34,8 +40,33 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	// getter et setter
+
 	public Panier getPanier() {
 		return panier;
+	}
+
+	public long getIdCommande() {
+		return idCommande;
+	}
+
+	public void setIdCommande(long idCommande) {
+		this.idCommande = idCommande;
+	}
+
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
+	public void setLigneCoService(ILigneCommandeService ligneCoService) {
+		this.ligneCoService = ligneCoService;
+	}
+
+	public void setcService(ICommandeService cService) {
+		this.cService = cService;
 	}
 
 	public void setPanier(Panier panier) {
@@ -59,23 +90,15 @@ public class PanierManagedBean implements Serializable {
 	}
 
 	// Les méthodes
-	public void envoyerPanier() {
-		//Récupération de toutes les lignes de commandes associées à un idCommande null
+	public String envoyerPanier() {
+		// Récupération de toutes les lignes de commandes associées à un
+		// idCommande null
 		this.listeLignecommande = ligneCoService.getAllLCommande();
-		
-			
-			if (this.listeLignecommande != null) {
-				// passer la liste dans la session
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCoPanier",
-						this.listeLignecommande);
 
-			}
-		}
-		
+		// passer la liste dans la session
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeLCPanier",
+				this.listeLignecommande);
 
-		
-
+		return "panier";
 	}
-
-
-
+}

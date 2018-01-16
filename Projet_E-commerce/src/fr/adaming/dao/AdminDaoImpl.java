@@ -14,6 +14,14 @@ public class AdminDaoImpl implements IAdminDao{
 	@PersistenceContext(unitName="PU_E")
 	 EntityManager em;
 	
+	
+	
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+
+
+
 	@Override
 	public Admin isExist(Admin a) throws Exception {
 		

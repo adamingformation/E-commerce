@@ -48,6 +48,24 @@ public class AdminManagedBean implements Serializable {
 	
 	private HttpSession maSession;
 	
+	
+	
+	public void setAdminService(IAdminServive adminService) {
+		this.adminService = adminService;
+	}
+
+	public void setcService(ICategorieService cService) {
+		this.cService = cService;
+	}
+
+	public void setpService(IProduitService pService) {
+		this.pService = pService;
+	}
+
+	public void setLcService(ILigneCommandeService lcService) {
+		this.lcService = lcService;
+	}
+
 	public AdminManagedBean() {
 		this.admin = new Admin();
 	}

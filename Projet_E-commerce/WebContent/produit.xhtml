@@ -49,6 +49,11 @@
 					<h:outputText value="Prix:" />
 					<h:outputText value="#{produit.prix}" />
 					
+			
+			<h:commandButton style="center" value="Ajouter à la commande" action="#{lcMB.ajouterLigneCommande}" actionListener="#{paMB.envoyerPanier}">
+				<f:setPropertyActionListener value="#{lcMB.lcommande.idNumLigne}"
+					target="#{paMB.ligneCommande.idNumLigne}" />
+			</h:commandButton>
 
 				</p:panelGrid>
 			</p:outputPanel>

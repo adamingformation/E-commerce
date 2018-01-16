@@ -26,9 +26,9 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 	}
 
 	@Override
-	public long deleteLCommande(long idLC) {
+	public void deleteLCommande(long idLC) {
 		
-		return LCommandeDao.deleteLCommande(idLC);
+		LCommandeDao.deleteLCommande(idLC);
 	}
 
 	@Override

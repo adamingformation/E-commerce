@@ -30,7 +30,8 @@ public class Commande implements Serializable{
 	private Date dateCommande= new Date();
 	
 	//transformation uml en java
-	@OneToMany(mappedBy="commande",cascade=CascadeType.ALL)
+	@OneToMany
+	@JoinColumn(referencedColumnName="idCommande")
 	private List<LigneCommande> listeligne;
 	
 	

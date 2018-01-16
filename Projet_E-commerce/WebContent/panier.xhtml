@@ -5,20 +5,24 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<h:title>Page du Panier</h:title>
-	<h:outputStylesheet library="css" name="login.css" />
+
 </h:head>
 
 <h:body>
+	<ui:insert name="header">
+		<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
+		<ui:include src="/templates/header.xhtml" />
+	</ui:insert>
 
+	<h1 style="text-align: center; color: blue">Votre Panier</h1>
 	<h:form>
-		<p:dataTable var="LC" value="#{sessionScope.listeLCoPanier}">
+		<p:dataTable var="LC" value="#{sessionScope.listeLCPanier}">
 			<p:column headerText="Id Ligne Commande">
 				<h:outputText value="#{LC.idNumLigne}" />
 			</p:column>
 
 			<p:column headerText="ID Produit">
-				<h:outputText value="#{LC.produit_id}" />
+				<h:outputText value="#{LC.produit.idProduit}" />
 			</p:column>
 
 			<p:column headerText="Quantité">
@@ -30,6 +34,10 @@
 			</p:column>
 
 		</p:dataTable>
+
+		<br />
+		<h:commandButton style="position: absolute; right:250px;"
+			value="Valider la commande" action="#{comMB.ajouterCommande}" />
 
 	</h:form>
 </h:body>

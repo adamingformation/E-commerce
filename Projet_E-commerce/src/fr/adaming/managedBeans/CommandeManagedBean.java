@@ -30,6 +30,7 @@ public class CommandeManagedBean implements Serializable{
 	private Client client;
 	private List<LigneCommande> listeLCo;
 	private LigneCommande ligneCommande;
+	private long idCommande;
 	
 	//Constructeurs
 	public CommandeManagedBean() {
@@ -39,8 +40,26 @@ public class CommandeManagedBean implements Serializable{
 	}
 
 	//Getters et Setters
+	
+	
 	public Commande getCommande() {
 		return commande;
+	}
+
+	public long getIdCommande() {
+		return idCommande;
+	}
+
+	public void setIdCommande(long idCommande) {
+		this.idCommande = idCommande;
+	}
+
+	public void setCommandeService(ICommandeService commandeService) {
+		this.commandeService = commandeService;
+	}
+
+	public void setLigneCommandeService(ILigneCommandeService ligneCommandeService) {
+		this.ligneCommandeService = ligneCommandeService;
 	}
 
 	public void setCommande(Commande commande) {
@@ -71,6 +90,7 @@ public class CommandeManagedBean implements Serializable{
 		this.ligneCommande = ligneCommande;
 	}
 	
+	//les methodes
 	public String ajouterCommande(){
 		//Créer une commande
 		this.commande = commandeService.addCommande(this.commande);
@@ -92,10 +112,47 @@ public class CommandeManagedBean implements Serializable{
 		//On ajoute dans la session l'id de la commande pour l'avoir lors de l'affichage dans l'espace client(accueil)
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idCommande", this.commande.getIdCommande());
 		if (this.commande != null) {
-			return "accueil";
+			return "loginClient";
 		} else {
 			return "panier";
 		}
 	}
+	public String supprimerCommande(){
+		commandeService.deleteCommande(this.commande.getIdCommande());
+		Commande cOut = commandeService.getCommande(this.commande.getIdCommande());
+
+		if (cOut == null) {
+			return "accueil";
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la suppression de la commande a échouée"));
+			return "supprimerCommande";
+		}
+	}
 	
+	public String modifierCommande(){
+		Commande c=commandeService.updateCommande(this.commande);
+		if(c!=null){
+			return "accueil";
+			
+		}else{
+			return "modifierCommande";
+		}
+	}
+	
+	public String rechercherCommandeParIdClientNull() {
+		Commande cOut = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
+		if (cOut != null) {
+			this.commande = cOut;
+			return "rechercheCommande";
+		} else {
+			return "rechercherCommande";
+		}
+	}
+public String rechercherCommandeIDC(){
+		
+		this.commande=commandeService.getCommande(this.commande.getIdCommande());
+		
+		return "rechercherCommande";
+		
+	}
 }

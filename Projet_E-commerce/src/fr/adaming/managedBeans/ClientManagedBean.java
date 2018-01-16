@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -34,8 +35,17 @@ public class ClientManagedBean implements Serializable {
 	}
 
 	// Getters et Setters
+
 	public Client getClient() {
 		return client;
+	}
+
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+
+	public void setCommandeService(ICommandeService commandeService) {
+		this.commandeService = commandeService;
 	}
 
 	public void setClient(Client client) {
@@ -72,6 +82,13 @@ public class ClientManagedBean implements Serializable {
 		// Passer le client dans la session
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
 
+		// recup de la commande avant son enregistrement
+		this.commande = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
+
+		// associe le client a la commande
+		this.commande.setClient(this.client);
+		this.commande = commandeService.updateCommande(this.commande);
+
 		if (this.client.getIdClient() != 0) {
 			return "accueil";
 		} else {
@@ -82,8 +99,10 @@ public class ClientManagedBean implements Serializable {
 	public String supprimerClient() {
 		clientService.deleteClient(this.client.getIdClient());
 		if (this.client.getIdClient() == null) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Votre compte n'existe plus"));
 			return "accueil";
 		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la suppression du compte a échoué"));
 			return "supprimerClient";
 		}
 
@@ -101,9 +120,20 @@ public class ClientManagedBean implements Serializable {
 
 	public String rechercherClient() {
 		Client clOut = clientService.getClientByNomEmail(this.client.getNomClient(), this.client.getEmail());
+
 		if (clOut != null) {
 			this.client = clOut;
 
+			// Passer le client dans la session
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("client", this.client);
+
+			// Récupérer la commande effectuée par le client avant son
+			// enregistremnt
+			this.commande = commandeService.getCommandeByIdClNULL(this.client.getIdClient());
+
+			// associer le client a la commande
+			this.commande.setClient(this.client);
+			this.commande = commandeService.updateCommande(this.commande);
 
 			return "accueil";
 		} else {

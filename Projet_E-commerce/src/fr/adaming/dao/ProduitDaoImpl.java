@@ -53,7 +53,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 
 	@Override
-	public Produit getProduitById(int id) {
+	public Produit getProduitById(long id) {
 		// requete JPQL
 		String req = "SELECT p FROM Produit as p WHERE p.id=:pId";
 
@@ -73,7 +73,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	}
 
 	@Override
-	public int deleteProduitPanier(int id) {
+	public int deleteProduitPanier(long id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -87,8 +87,23 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public Produit updateProduit(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
+		em.merge(p);
+		return p;
+	}
+	
+	@Override
+	public List<Produit> getAllPorduitByCategorie(int id_c) {
+		// Creation de la requete JPQL
+		String req = "select p from Produit as p where categorie_id=:pcId";
+		System.out.println("ID categorie =" +id_c);
+		// Creer un query
+		Query query = em.createQuery(req);
+		
+		// passage des param
+		query.setParameter("pcId", id_c);
+
+		// Envoyer la requete
+		return query.getResultList();
 	}
 
 }

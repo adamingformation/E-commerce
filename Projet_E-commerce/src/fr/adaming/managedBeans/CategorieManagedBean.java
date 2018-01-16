@@ -50,6 +50,18 @@ public class CategorieManagedBean implements Serializable {
 		this.admin = (Admin) maSession.getAttribute("adminSession");
 	}
 
+	public List<Categorie> getListeCategorie() {
+		return listeCategorie;
+	}
+
+	public void setListeCategorie(List<Categorie> listeCategorie) {
+		this.listeCategorie = listeCategorie;
+	}
+
+	public void setcService(ICategorieService cService) {
+		this.cService = cService;
+	}
+
 	public Categorie getCategorie() {
 		return categorie;
 	}
