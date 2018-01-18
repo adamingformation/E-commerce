@@ -22,7 +22,7 @@ public class LigneCommande implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long idNumLigne;
 	private int quantite;
-	private int prix;
+	private double prix;
 
 	
 	
@@ -65,10 +65,10 @@ public class LigneCommande implements Serializable {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-	public int getPrix() {
+	public double getPrix() {
 		return prix;
 	}
-	public void setPrix(int prix) {
+	public void setPrix(double prix) {
 		this.prix = prix;
 	}
 	public Long getIdNumLigne() {
