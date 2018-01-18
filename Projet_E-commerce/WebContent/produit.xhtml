@@ -15,7 +15,7 @@
 		<!-- specifier l'endroit ou je veux inserer mon header avec la balise ui:insert -->
 		<ui:insert name="header">
 			<!-- specifier le fichier ou je veux inserer  avec la balise ui:include -->
-			<ui:include src="/templates/header.xhtml"/>
+			<ui:include src="/templates/header.xhtml" />
 		</ui:insert>
 	</div>
 
@@ -23,7 +23,7 @@
 	<br />
 	<h:form id="form">
 		<p:dataGrid var="produit" value="#{sessionScope.produitList}"
-			columns="6" layout="grid" rows="3" paginator="true" id="produit"
+			columns="3" layout="grid" rows="3" paginator="true" id="produit"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
          {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="6,12,16">
@@ -43,23 +43,30 @@
 					<h:outputText value="Designation: " />
 					<h:outputText value="#{produit.designation}" />
 
-					<h:outputText value="Quantité: " />
+					<h:outputText value="Quantité en Stock: " />
 					<h:outputText value="#{produit.quantite}" />
-					
+
 					<h:outputText value="Prix:" />
 					<h:outputText value="#{produit.prix}" />
-					
-			
-			<h:commandButton style="center" value="Ajouter à la commande" action="#{lcMB.ajouterLigneCommande}" actionListener="#{paMB.envoyerPanier}">
-				<f:setPropertyActionListener value="#{lcMB.lcommande.idNumLigne}"
-					target="#{paMB.ligneCommande.idNumLigne}" />
-			</h:commandButton>
+
+					<p:column headerText="Quantité souhaitée">
+						<h:form>
+							<h:inputText value="#{lcMB.lcommande.quantite}" />
+
+							<p:commandLink value="Ajouter au Panier"
+								action="#{lcMB.ajouterLigneCommande}" update="@all">
+								<f:setPropertyActionListener value="#{pro.idProduit}"
+									target="#{lcMB.produit.idProduit}"></f:setPropertyActionListener>
+							</p:commandLink>
+						</h:form>
+					</p:column>
+
 
 				</p:panelGrid>
 			</p:outputPanel>
 		</p:dataGrid>
 	</h:form>
-
+	<h:messages></h:messages>
 </h:body>
 
 </html>

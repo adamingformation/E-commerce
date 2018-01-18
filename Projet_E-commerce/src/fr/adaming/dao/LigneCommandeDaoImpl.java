@@ -41,7 +41,7 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	}
 	@Override
 	public List<LigneCommande> getAllLCommande(){
-		// construire la requete JPQL
+				// construire la requete JPQL
 				String req = "SELECT lc FROM LigneCommande as lc WHERE lc.commande IS NULL";
 
 				// creer la query
@@ -90,10 +90,10 @@ public class LigneCommandeDaoImpl implements ILigneCommandeDao {
 	@Override
 	public double calculPrixLigneCommande(LigneCommande lc, Produit p) {
 
-		System.out.println("lc :" + lc + "\n" + "p : " + p);
-		System.out.println("p.getprix : " + p.getPrix());
+		//System.out.println("lc :" + lc + "\n" + "p : " + p);
+		//System.out.println("p.getprix : " + p.getPrix());
 		double prixTotal = p.getPrix() * lc.getQuantite();
-		System.out.println("prix :" + prixTotal);
+		//System.out.println("prix :" + prixTotal);
 		return prixTotal;
 	}
 }

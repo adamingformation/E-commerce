@@ -20,21 +20,20 @@
 			<p:submenu label="Catégories" icon="ui-icon-pencil">
 				<p:menuitem value="Toutes" url="categories.xhtml"
 					icon="ui-icon-star" />
-				<p:menuitem value="Outils" url="catDeco.xhtml"
-					icon="ui-icon-star" />
+				<p:menuitem value="Outils" url="catDeco.xhtml" icon="ui-icon-star" />
 				<p:menuitem value="Décoration" url="catOutils.xhtml"
 					icon="ui-icon-star" />
 			</p:submenu>
 
-			<f:facet name="options">
-				<p:inputText style="margin-right:50px" placeholder="Search" />
+			<f:facet name="options">				
 				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
 			</f:facet>
-			<p:menuitem value="Connexion" url="login.xhtml"
-					icon="ui-icon-extlink" />
-					
-					<p:menuitem value="Panier" url="panier.xhtml"
-					icon="ui-icon-extlink" />
+			
+			<p:menuitem value="Connexion Admin" url="login.xhtml"
+				icon="ui-icon-extlink" />
+			<p:menuitem value="Espace Client" url="accueilClient.xhtml"
+				icon="ui-icon-extlink" />
+			<p:menuitem value="Panier" url="panier.xhtml" icon="ui-icon-extlink" />
 		</p:menubar>
 	</h:form>
 
