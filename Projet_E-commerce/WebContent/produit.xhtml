@@ -50,7 +50,7 @@
 					<h:outputText value="#{produit.prix}" />
 
 					<p:column headerText="Quantité souhaitée">
-						<h:form>
+						
 							<h:inputText value="#{lcMB.lcommande.quantite}" />
 
 							<p:commandLink value="Ajouter au Panier"
@@ -58,7 +58,7 @@
 								<f:setPropertyActionListener value="#{produit.idProduit}"
 									target="#{lcMB.produit.idProduit}"></f:setPropertyActionListener>
 							</p:commandLink>
-						</h:form>
+						
 					</p:column>
 
 
